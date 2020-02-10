@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
-import Autorization from '../src/main/login';
-import Registration from '../src/main/registration';
-import UserInfo from '../src/main/userInfo';
-import Redaction from '../src/main/redaction';
+import Autorization from './main/login';
+import Registration from './main/registration';
+import UserInfo from './main/userinfo';
+import Redaction from './main/redaction';
 
 export default class App extends React.Component {
   render() {

@@ -2,6 +2,7 @@ import React from 'react';
 import {DivHeader, DivContent, DivFooter, DivText, Content, Div, DivInfo} from '../components/index';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
+import axios from 'axios';
 
 interface IUser {
     name: string,
@@ -9,9 +10,11 @@ interface IUser {
     number: number,
     gender: string,
     password: string,
+    _id: string,
+    img?: string,
 }
 
-class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, file: any}> {
+class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, file: any, isFileUpload: boolean}> {
     getUser: any;
     user: IUser;
 
@@ -22,7 +25,8 @@ class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, fi
         this.user = JSON.parse(this.getUser);
         this.state = {
             file: '',
-            imagePreviewUrl: ''
+            imagePreviewUrl: `http://localhost:4000/images/?name=${this.user.img || ''}`,
+            isFileUpload: false,
         };
     }
 
@@ -35,7 +39,8 @@ class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, fi
         reader.onloadend = () => {
           this.setState({
             file: file,
-            imagePreviewUrl: reader.result
+            imagePreviewUrl: reader.result,
+            isFileUpload: true,
           });
         }
     
@@ -51,11 +56,28 @@ class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, fi
         this.props.history.push('/redactionInfo');
     }
 
+    saveImage = async () => {
+        if (this.state.isFileUpload) {
+            try {
+                const { data } = await axios.post('http://localhost:4000/saveImage', { img: this.state.imagePreviewUrl, id: this.user._id });
+
+                localStorage.setItem('user', JSON.stringify(data));
+                this.setState({ isFileUpload: false });
+            } catch(err) {
+                console.log(err);
+            }
+        }
+    }
+
     render() {
         return (
             <React.Fragment>
                 <Content>
                     <DivHeader>
+                        <Button variant="contained" color="secondary" id='btnExit'>
+                            Show all users
+                        </Button>
+
                         <Button variant="contained" color="secondary" id='btnExit' onClick={this.logout}>
                             Exit
                         </Button>
@@ -70,7 +92,7 @@ class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, fi
                         <Div>
                             <Avatar 
                                 alt='' 
-                                src={this.state.imagePreviewUrl} 
+                                src={this.state.imagePreviewUrl}
                                 className='avatar' 
                             />
 
@@ -82,10 +104,21 @@ class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, fi
                                 onChange={this._handleImageChange}
                             />
                             <label htmlFor="outlined-button-file" className='upload'>
-                                <Button variant="outlined" component="span">
+                                <Button variant="outlined" component="span" style={{display: `${this.state.isFileUpload ? 'none' : 'block'}`}}>
                                     Upload
                                 </Button>
                             </label>
+
+                            <Button
+                                variant="outlined"
+                                onClick={this.saveImage}
+                                component="span"
+                                style={{
+                                    display: `${this.state.isFileUpload ? 'block' : 'none'}`
+                                }}
+                            >
+                                Save
+                            </Button>
 
                             <DivInfo>
                                 <div>

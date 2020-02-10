@@ -1,3 +1,6 @@
+const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -18,8 +21,12 @@ const port = 4000;
 
 app.use(cors());
 app.use('/static', express.static(`${__dirname}/public`));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use( bodyParser.json({limit: '50mb'}) );
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  extended: true,
+  parameterLimit:50000
+}));
 
 const server = require('http').createServer(app);
 
@@ -70,3 +77,32 @@ app.put('/redaction', async (req, res) => {
 
   res.send(user);
 })
+
+app.post('/saveImage', async (req, res) => {
+  const { img, id }  = req.body;
+  
+  const buf = crypto.randomBytes(16);
+  const fileName = `${buf.toString('hex')}.png`;
+  const newImg = img.replace(/^.*base64,/, '');
+
+  fs.writeFileSync(
+    path.join(__dirname, `./src/images/${fileName}`),
+    Buffer.from(newImg, 'base64')
+  );
+
+  const user = await users.findOneAndUpdate({ _id: id }, { $set: { img: fileName } });
+
+  res.send(user);
+});
+
+app.get('/images', async (req, res) => {
+  const { name } = req.query;
+
+    try {
+      const data = fs.readFileSync(path.join(__dirname, `./src/images/${name}`));
+
+      res.send(data);
+    } catch {
+      res.send('');
+    }
+});
