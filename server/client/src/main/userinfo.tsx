@@ -3,18 +3,30 @@ import {DivHeader, DivContent, DivFooter, DivText, Content, Div, DivInfo} from '
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 
-class UserInfo extends React.Component {
-    constructor(props) {
+interface IUser {
+    name: string,
+    email: string,
+    number: number,
+    gender: string,
+    password: string,
+}
+
+class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, file: any}> {
+    getUser: any;
+    user: IUser;
+
+    constructor(props: any) {
         super(props);
 
-        this.user = JSON.parse(localStorage.getItem('user'));
+        this.getUser = localStorage.getItem('user');
+        this.user = JSON.parse(this.getUser);
         this.state = {
             file: '',
             imagePreviewUrl: ''
         };
     }
 
-    _handleImageChange = (e) => {
+    _handleImageChange = (e: any) => {
         e.preventDefault();
     
         let reader = new FileReader();

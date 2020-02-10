@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }));
 
 function Registration(props: any) {
-    const classes = useStyles();
+    const classes: any = useStyles();
     const [name, setName] = React.useState('');
     const [email, setMail] = React.useState('');
     const [number,setNumber] = React.useState('');
@@ -115,7 +115,7 @@ function Registration(props: any) {
 
           setName('');
           setMail('');
-          setPassword({password: ''});
+          setPassword({...password, password: ''});
           setNumber('');
           setGender('');
 
@@ -226,7 +226,15 @@ function Registration(props: any) {
                 </RadioGroup>
               </FormControl>
 
-              <Button id="save" variant="contained" color="secondary" size="large" margin="normal" className={classes.button} startIcon={<SaveIcon />} onClick={registr}>
+              <Button 
+                id="save" 
+                variant="contained" 
+                color="secondary" 
+                size="large" 
+                // margin="normal" 
+                className={classes.button} 
+                startIcon={<SaveIcon />} 
+                onClick={registr}>
                 Save
               </Button>
             </DivReg>

@@ -64,31 +64,31 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-function Redaction(props) {
-    const user = JSON.parse(localStorage.getItem('user'));
+function Redaction(props: any) {
+    const getUser: any = localStorage.getItem('user');
+    const user = JSON.parse(getUser);
     const {name, email, number, gender, password} = user;
 
-    const classes = useStyles();
+    const classes: any = useStyles();
     const [userName, setName] = React.useState(name);
     const [userEmail, setMail] = React.useState(email);
     const [userNumber,setNumber] = React.useState(number);
     const [userGender, setGender] = React.useState(gender);
     
-
     const [userPassword, setPassword] = React.useState({
       password: password,
       showPassword: false,
     });
 
-    const showGender = event => {
+    const showGender = (event: any) => {
       setGender(event.target.value);
     };
 
-    const handleChange = prop => event => {
+    const handleChange = (prop: any) => (event: any) => {
       setPassword({ ...userPassword, [prop]: event.target.value });
     };
 
-    const handleMouseDownPassword = event => {
+    const handleMouseDownPassword = (event: any) => {
       event.preventDefault();
     };
 
@@ -213,7 +213,7 @@ function Redaction(props) {
                 variant="contained"
                 color="secondary"
                 size="large"
-                margin="normal"
+                // margin="normal"
                 className={classes.button}
                 startIcon={<SaveIcon />}
                 onClick={updateInfo}
