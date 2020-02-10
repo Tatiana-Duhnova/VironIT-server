@@ -106,3 +106,9 @@ app.get('/images', async (req, res) => {
       res.send('');
     }
 });
+
+app.get('/users', async (req, res) => {
+  const allUsers = await users.find({});
+
+  res.send(allUsers);
+});
