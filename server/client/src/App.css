@@ -1,0 +1,131 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+* {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+body {
+  background: gainsboro;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+  font-size: 75px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 0;
+}
+
+h4 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #f50057;
+}
+
+#btn {
+  margin: 15px 70px;
+}
+
+#save {
+  margin-bottom: 40px;
+}
+
+#btnReg {
+  color: white;
+  margin: 30px 200px;
+  font-size: 20px;
+}
+
+#btnExit {
+  float: right;
+  margin: 30px 200px;
+  font-size: 20px;
+}
+
+#last {
+  margin-bottom: 60px;
+}
+
+#margin {
+  margin-bottom: 0;
+}
+
+#outlined-button-file {
+  display: none;
+}
+
+#btnMenu {
+  color: white;
+  font-size: 20px;
+}
+
+.upload {
+  margin: 10px 95px;
+}
+
+.avatar {
+  margin: 10px 90px;
+  width: 90px !important;
+  height: 90px !important;
+}
+
+.red {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.green {
+  color: green;
+  margin-bottom: 15px;
+}
+
+.info {
+  font-size: 22px;
+  margin-bottom: 35px;
+  font-weight: bold;
+}
+
+.infoUser {
+  font-size: 22px;
+  margin-bottom: 35px;
+}
+
+#redaction {
+  margin-bottom: 35px;
+}
+
+#name, #pass {
+  margin-bottom: 20px;
+}
+
+#div_content {
+  height: 450px;
+  margin: 128px auto;
+}
