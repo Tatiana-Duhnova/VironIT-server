@@ -74,7 +74,7 @@ class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, fi
             <React.Fragment>
                 <Content>
                     <DivHeader>
-                        <Button variant="contained" color="secondary" id='btnExit'>
+                        <Button variant="contained" color="secondary" id='btnAllUsers' onClick={() => this.props.history.push('/allUsers')}>
                             Show all users
                         </Button>
 
@@ -103,8 +103,8 @@ class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, fi
                                 type="file"
                                 onChange={this._handleImageChange}
                             />
-                            <label htmlFor="outlined-button-file" className='upload'>
-                                <Button variant="outlined" component="span" style={{display: `${this.state.isFileUpload ? 'none' : 'block'}`}}>
+                            <label htmlFor="outlined-button-file" id='upload'>
+                                <Button variant="outlined" component="span" id='btnUpload' style={{display: `${this.state.isFileUpload ? 'none' : 'block'}`}}>
                                     Upload
                                 </Button>
                             </label>
@@ -116,6 +116,7 @@ class UserInfo extends React.Component<{history: any}, {imagePreviewUrl: any, fi
                                 style={{
                                     display: `${this.state.isFileUpload ? 'block' : 'none'}`
                                 }}
+                                id='saveImg'
                             >
                                 Save
                             </Button>

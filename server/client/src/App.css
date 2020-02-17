@@ -40,7 +40,7 @@ h1 {
 h2 {
   text-align: center;
   font-size: 40px;
-  margin-bottom: 0;
+  margin-bottom: 25px;
 }
 
 h4 {
@@ -69,7 +69,11 @@ h4 {
   font-size: 20px;
 }
 
-
+#btnAllUsers {
+  float: left;
+  margin: 30px 200px;
+  font-size: 20px;
+}
 
 #last {
   margin-bottom: 60px;
@@ -88,8 +92,18 @@ h4 {
   font-size: 20px;
 }
 
-.upload {
+#saveImg {
+  width: 20px;
+  margin: 0 105px;
+}
+
+#btnUpload {
+  left: -13px;
+}
+
+#upload {
   margin: 10px 95px;
+  padding: 5px 13px;
 }
 
 .avatar {
@@ -117,6 +131,15 @@ h4 {
 .infoUser {
   font-size: 22px;
   margin-bottom: 35px;
+}
+
+.MuiAvatar-root {
+  border: 1px lightgray solid;
+  background: lightgray;
+}
+
+#MuiIconButton-root {
+  margin-right: 26px !important;
 }
 
 #redaction {

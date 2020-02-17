@@ -158,7 +158,7 @@ function Autorization(props: any) {
                 container={() => rootRef.current}
                 BackdropComponent={Backdrop}
                 BackdropProps={{
-                  timeout: 500,
+                  timeout: 200,
                 }}
               >
   

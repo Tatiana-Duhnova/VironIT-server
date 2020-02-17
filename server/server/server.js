@@ -30,9 +30,38 @@ app.use(bodyParser.urlencoded({
 
 const server = require('http').createServer(app);
 
-server.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server listen port ${port}`);
 });
+//in user-router.js
+const userRouter = express.Router();
+userRouter.get('/', authMiddleware, UserController.getAllUsers);
+
+// in user-controller.js
+class UserController {
+  static async getAllUsers(req, res, next) {
+    res.send(await UserService.getAll());
+  }
+
+  static async getUserById(req, res, next) {
+    res.send(await UserService.getById(req.params.id));
+  }
+}
+
+// in user-service.js
+class UserService {
+  static async getAll() {
+    return await users.find({});
+  }
+}
+
+//in server.js
+app.use('/users', userRouter);
+
+// create and send access token after login and signup. Verify token on auth middleware. Use jwt. Verification: verify token by jwt, get userId from jwt and try to find user in mongodb by userId from jwt
+// PS on login and registration steps put into token user ID
+// place token to headers by header key 'Authorization' and value 'Bearer bgkjdshfdhkljdashghdasgkjhkjasgh'
+// in auth middleware do req.user = findedUser;
 
 app.post('/login', (req, res) => {
     setTimeout(() => users.findOne({email: req.body.email}).then((user) => {
@@ -57,12 +86,7 @@ app.post('/registration', (req, res) => {
       throw new Error('Uncorrect email');
     } else {
       users.insert(
-        { name: req.body.name, 
-          email: req.body.email,
-          number: req.body.number,
-          password: req.body.password,
-          gender: req.body.gender,
-        }).then((user) => {
+        { ...req.body }).then((user) => {
           res.send(user);
         });
     }
@@ -73,7 +97,7 @@ app.post('/registration', (req, res) => {
 
 app.put('/redaction', async (req, res) => {
   const {name, email, number, password, gender, lastEmail}  = req.body;
-  const user = await users.findOneAndUpdate({email: lastEmail}, {$set: {name, email, number, password, gender}});
+  const user = await users.findOneAndUpdate({email: lastEmail}, {$set: {...req.body}});
 
   res.send(user);
 })
@@ -112,3 +136,4 @@ app.get('/users', async (req, res) => {
 
   res.send(allUsers);
 });
+

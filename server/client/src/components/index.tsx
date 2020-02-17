@@ -35,7 +35,7 @@ const DivFooter = styled.div `
 `;
 const DivRegistration = styled.div `
   display: flex;
-  flex-direction: row nowrap;
+  flex-flow: row nowrap;
   justify-content: flex-end;
 `;
 const DivReg = styled.div `
@@ -46,10 +46,23 @@ const DivReg = styled.div `
 `;
 const DivInfo = styled.div `
   display: flex;
-  flex-direction: row nowrap;
+  flex-flow: row nowrap;
   justify-content: space-around;
   width: 350px;
   margin-left: -25px;
 `;
 
-export {Div, DivHeader, DivContent, DivFooter, DivText, DivRegistration, DivReg, Content, DivInfo};
+const DivUsers = styled.div `
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+`
+
+const UserInfo = styled.div `
+  border: 1px solid lightgray;
+  width: 360px;
+  margin: 15px;
+  border-radius: 60px;
+`
+
+export {Div, DivHeader, DivContent, DivFooter, DivText, DivRegistration, DivReg, Content, DivInfo, DivUsers, UserInfo};

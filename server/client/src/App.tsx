@@ -5,6 +5,7 @@ import Autorization from './main/login';
 import Registration from './main/registration';
 import UserInfo from './main/userinfo';
 import Redaction from './main/redaction';
+import AllUsers from './main/allusers';
 
 export default class App extends React.Component {
   render() {
@@ -14,6 +15,7 @@ export default class App extends React.Component {
           <Route exact path='/registration' component={Registration}/>
           <Route exact path='/userInfo' component={UserInfo}/>
           <Route exact path='/redactionInfo' component={Redaction}/>
+          <Route exact path='/allUsers' component={AllUsers}/>
       </Switch>
     );
   }
