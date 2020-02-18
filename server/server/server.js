@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
-const monk = require('monk')
+const monk = require('monk');
 // Connection URL
 const url = 'localhost:27017/myProject';
 
@@ -14,49 +14,48 @@ const db = monk(url);
 const users = db.get('users');
 
 db.then(() => {
-  console.log('Connected correctly to server')
+  console.log('Connected correctly to server');
 })
 
 const port = 4000;
 
 app.use(cors());
 app.use('/static', express.static(`${__dirname}/public`));
-app.use( bodyParser.json({limit: '50mb'}) );
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({
   limit: '50mb',
   extended: true,
   parameterLimit:50000
 }));
 
-const server = require('http').createServer(app);
-
 app.listen(port, () => {
     console.log(`Server listen port ${port}`);
 });
+
 //in user-router.js
-const userRouter = express.Router();
-userRouter.get('/', authMiddleware, UserController.getAllUsers);
+// const userRouter = express.Router();
+// userRouter.get('/', authMiddleware, UserController.getAllUsers);
 
 // in user-controller.js
-class UserController {
-  static async getAllUsers(req, res, next) {
-    res.send(await UserService.getAll());
-  }
+// class UserController {
+//   static async getAllUsers(req, res, next) {
+//     res.send(await UserService.getAll());
+//   }
 
-  static async getUserById(req, res, next) {
-    res.send(await UserService.getById(req.params.id));
-  }
-}
+//   static async getUserById(req, res, next) {
+//     res.send(await UserService.getById(req.params.id));
+//   }
+// }
 
 // in user-service.js
-class UserService {
-  static async getAll() {
-    return await users.find({});
-  }
-}
+// class UserService {
+//   static async getAll() {
+//     return await users.find({});
+//   }
+// }
 
 //in server.js
-app.use('/users', userRouter);
+// app.use('/users', userRouter);
 
 // create and send access token after login and signup. Verify token on auth middleware. Use jwt. Verification: verify token by jwt, get userId from jwt and try to find user in mongodb by userId from jwt
 // PS on login and registration steps put into token user ID
