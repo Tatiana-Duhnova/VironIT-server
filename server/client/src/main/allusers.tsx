@@ -26,54 +26,38 @@ const useStyles = ((theme: Theme) => makeStyles({
     },
   }));
 
-class AllUsers extends React.Component<{history: any}, {imagePreviewUrl: any, file: any}> {
-    getUser: any;
-    user: IUser;
-    classes: any;
-
-    constructor(props: any) {
-        super(props);
-
-        this.getUser = localStorage.getItem('user');
-        this.user = JSON.parse(this.getUser);
-        this.classes = useStyles;
-        this.state = {
-            file: '',
-            imagePreviewUrl: `http://localhost:4000/images/?name=${this.user.img}`,
-        };
-    }
-
-    _handleImageChange = (e: any) => {
+function AllUsers(props: any) {
+ const getUser: any = localStorage.getItem('user');
+ const user = JSON.parse(getUser);
+ const classes: any = useStyles;
+ const [file, setImg] = React.useState({
+     file: '',
+     imagePreviewUrl: `http://localhost:4000/images/?name=${user.img}`,
+ });
+  
+ const handleImageChange = (e: any) => {
         e.preventDefault();
     
         let reader = new FileReader();
         let file = e.target.files[0];
     
         reader.onloadend = () => {
-          this.setState({
-            file: file,
-            imagePreviewUrl: reader.result,
-          });
-        }
+          setImg({...file, file: file, imagePreviewUrl: reader.result,});
+        };
     
-        reader.readAsDataURL(file)
+        reader.readAsDataURL(file);
     }
 
-    logout = () => {
-        this.props.history.push('/');
-        localStorage.clear();
+    const logout = () => {
+            props.history.push('/');
+            localStorage.clear();
     }
 
-    deleteUser = () => {
-
-    }
-
-    render() {
-        return (
+    return (
             <React.Fragment>
                 <Content>
                     <DivHeader>
-                        <Button variant="contained" color="secondary" id='btnExit' onClick={this.logout}>
+                        <Button variant="contained" color="secondary" id='btnExit' onClick={logout}>
                             Exit
                         </Button>
                     </DivHeader>
@@ -89,7 +73,7 @@ class AllUsers extends React.Component<{history: any}, {imagePreviewUrl: any, fi
                                 <Div>
                                     <Avatar 
                                         alt='' 
-                                        src={this.state.imagePreviewUrl}
+                                        src={file.imagePreviewUrl}
                                         className='avatar' 
                                     />
 
@@ -98,13 +82,13 @@ class AllUsers extends React.Component<{history: any}, {imagePreviewUrl: any, fi
                                         id="outlined-button-file"
                                         multiple
                                         type="file"
-                                        onChange={this._handleImageChange}
+                                        onChange={handleImageChange}
                                     />
 
                                     <IconButton 
                                         aria-label="delete" 
-                                        className={this.classes.margin} 
-                                        onClick={this.deleteUser}
+                                        className={classes.margin} 
+                                        // onClick={deleteUser}
                                         id='MuiIconButton-root'
                                     >
                                         <DeleteIcon fontSize="inherit" />
@@ -119,10 +103,10 @@ class AllUsers extends React.Component<{history: any}, {imagePreviewUrl: any, fi
                                         </div>
 
                                         <div>
-                                            <p className='infoUser'>{this.user.name}</p>
-                                            <p className='infoUser'>{this.user.email}</p>
-                                            <p className='infoUser'>{this.user.number}</p>
-                                            <p className='infoUser' id='last'>{this.user.gender}</p>
+                                            <p className='infoUser'>{user.name}</p>
+                                            <p className='infoUser'>{user.email}</p>
+                                            <p className='infoUser'>{user.number}</p>
+                                            <p className='infoUser' id='last'>{user.gender}</p>
                                         </div>
                                     </DivInfo>
                                 </Div>
@@ -134,7 +118,117 @@ class AllUsers extends React.Component<{history: any}, {imagePreviewUrl: any, fi
                 </Content>
             </React.Fragment>
         );
-    }
 }
+
+// class AllUsers extends React.Component<{history: any}, {imagePreviewUrl: any, file: any}> {
+//     getUser: any;
+//     user: IUser;
+//     classes: any;
+
+//     constructor(props: any) {
+//         super(props);
+
+//         this.getUser = localStorage.getItem('user');
+//         this.user = JSON.parse(this.getUser);
+//         this.classes = useStyles;
+//         this.state = {
+//             file: '',
+//             imagePreviewUrl: `http://localhost:4000/images/?name=${this.user.img}`,
+//         };
+//     }
+
+//     _handleImageChange = (e: any) => {
+//         e.preventDefault();
+    
+//         let reader = new FileReader();
+//         let file = e.target.files[0];
+    
+//         reader.onloadend = () => {
+//           this.setState({
+//             file: file,
+//             imagePreviewUrl: reader.result,
+//           });
+//         }
+    
+//         reader.readAsDataURL(file)
+//     }
+
+//     logout = () => {
+//         this.props.history.push('/');
+//         localStorage.clear();
+//     }
+
+//     deleteUser = () => {
+
+//     }
+
+//     render() {
+//         return (
+//             <React.Fragment>
+//                 <Content>
+//                     <DivHeader>
+//                         <Button variant="contained" color="secondary" id='btnExit' onClick={this.logout}>
+//                             Exit
+//                         </Button>
+//                     </DivHeader>
+
+//                     <DivContent>
+//                         <DivText>
+//                             <h1 id='margin'>Welcome!</h1>
+//                             <h4>Here you can view all users</h4>
+//                         </DivText>
+
+//                         <DivUsers>
+//                             <UserInfo>
+//                                 <Div>
+//                                     <Avatar 
+//                                         alt='' 
+//                                         src={this.state.imagePreviewUrl}
+//                                         className='avatar' 
+//                                     />
+
+//                                     <input
+//                                         accept="image/*"
+//                                         id="outlined-button-file"
+//                                         multiple
+//                                         type="file"
+//                                         onChange={this._handleImageChange}
+//                                     />
+
+//                                     <IconButton 
+//                                         aria-label="delete" 
+//                                         className={this.classes.margin} 
+//                                         onClick={this.deleteUser}
+//                                         id='MuiIconButton-root'
+//                                     >
+//                                         <DeleteIcon fontSize="inherit" />
+//                                     </IconButton>
+
+//                                     <DivInfo>
+//                                         <div>
+//                                             <p className='info'>Name:</p>
+//                                             <p className='info'>Email:</p>
+//                                             <p className='info'>Phone:</p>
+//                                             <p className='info'>Gender:</p>
+//                                         </div>
+
+//                                         <div>
+//                                             <p className='infoUser'>{this.user.name}</p>
+//                                             <p className='infoUser'>{this.user.email}</p>
+//                                             <p className='infoUser'>{this.user.number}</p>
+//                                             <p className='infoUser' id='last'>{this.user.gender}</p>
+//                                         </div>
+//                                     </DivInfo>
+//                                 </Div>
+//                             </UserInfo>
+//                         </DivUsers>
+//                     </DivContent>
+
+//                     <DivFooter></DivFooter>
+//                 </Content>
+//             </React.Fragment>
+//         );
+//     }
+// }
 
 export default AllUsers;
