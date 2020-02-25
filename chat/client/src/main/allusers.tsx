@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-// import axios from 'axios';
+import axios from 'axios';
 
 interface IUser {
     name: string,
@@ -34,6 +34,20 @@ function AllUsers(props: any) {
         file: '',
         imagePreviewUrl: `http://localhost:4000/images/?name=${user.img}`,
     });
+    const [allUsers, setAllUsers] = React.useState([]);
+
+    React.useEffect (() => {
+        (async () => {
+            const getUsers: any = await axios.get('http://localhost:4000/users');
+            setAllUsers(getUsers);
+        })();
+    }, []);
+
+    const showUsers = allUsers.map((person, index) => {
+        return (
+          <UserInfo key={index} person={person} />
+        );
+    });
     
     const handleImageChange = (e: any) => {
         e.preventDefault();
@@ -42,16 +56,16 @@ function AllUsers(props: any) {
         let file = e.target.files[0];
     
         reader.onloadend = () => {
-          setImg({...file, file: file, imagePreviewUrl: reader.result,});
+          setImg({...file, file: file, imagePreviewUrl: reader.result});
         };
     
         reader.readAsDataURL(file);
-    }
+    };
 
     const logout = () => {
         props.history.push('/');
         localStorage.clear();
-    }
+    };
 
     return (
         <React.Fragment>
@@ -103,10 +117,10 @@ function AllUsers(props: any) {
                                     </div>
 
                                     <div>
-                                        <p className='infoUser'>{user.name}</p>
-                                        <p className='infoUser'>{user.email}</p>
-                                        <p className='infoUser'>{user.number}</p>
-                                        <p className='infoUser' id='last'>{user.gender}</p>
+                                        <p className='infoUser'></p>
+                                        <p className='infoUser'></p>
+                                        <p className='infoUser'></p>
+                                        <p className='infoUser' id='last'></p>
                                     </div>
                                 </DivInfo>
                             </Div>
