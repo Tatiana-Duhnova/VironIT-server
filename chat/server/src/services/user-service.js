@@ -1,12 +1,13 @@
-const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
-const monk = require('monk');
+import crypto from 'crypto';
+import fs from 'fs';
+import path from 'path';
+import monk from 'monk';
+
 const url = 'localhost:27017/myProject';
 const db = monk(url);
 const users = db.get('users');
 
-const addUser = async (req, res) => {
+export const addUser = async (req, res) => {
     await users.findOne({email: req.body.email}).then((user) => {
       if (user) {
         throw new Error('Uncorrect email');
@@ -18,24 +19,24 @@ const addUser = async (req, res) => {
     console.log(req.body);
 };
 
-const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req, res) => {
     const allUsers = await users.find({});
   
     res.send(allUsers);
 };
 
-const updateUserInfo = async (req, res) => {
+export const updateUserInfo = async (req, res) => {
     const {name, email, number, password, gender, lastEmail}  = req.body;
     const user = await users.findOneAndUpdate({email: lastEmail}, {$set: {name, email, number, password, gender}});
   
     res.send(user);
 };
 
-const deleteUser = async function(req){
-    return await req.user.remove();
-};
+// export const deleteUser = async function(req){
+    
+// };
 
-const getUser = (req, res) => {
+export const getUser = (req, res) => {
     setTimeout(() => users.findOne({email: req.body.email}).then((user) => {
         if (user) {
             if (user.password === req.body.password) {
@@ -52,7 +53,7 @@ const getUser = (req, res) => {
     console.log(req.body);
 };
 
-const saveImg = async (req, res) => {
+export const saveImg = async (req, res) => {
     const {img, id} = req.body;
     
     const buf = crypto.randomBytes(16);
@@ -69,7 +70,7 @@ const saveImg = async (req, res) => {
     res.send(user);
 };
 
-const getImg = async (req, res) => {
+export const getImg = async (req, res) => {
     const { name } = req.query;
   
     try {
@@ -80,20 +81,3 @@ const getImg = async (req, res) => {
         res.send('');
     }
 };
-
-module.exports = {
-    addUser,
-    getAllUsers,
-    updateUserInfo,
-    deleteUser,
-    getUser,
-    saveImg,
-    getImg,
-};
-
-// const addUser = async function (req) {
-//     const user = req.body;
-//     await user.save();
-//     const token = await user.generateAuthToken();
-//     return {user, token};
-// };

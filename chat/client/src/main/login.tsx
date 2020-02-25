@@ -62,9 +62,9 @@ const useStyles = makeStyles((theme: Theme) => ({
 function Autorization(props: any) {
     const [email, setEmail] = React.useState('');
     const [pass, setPass] = React.useState('');
-    const [value1, setValue1] = React.useState(false);
-    const [value2, setValue2] = React.useState(false);
-    const [value3, setValue3] = React.useState(false);
+    const [errMail, setErrMail] = React.useState(false);
+    const [errPass, setErrPass] = React.useState(false);
+    const [modal, setModal] = React.useState(false);
   
     const classes = useStyles();
     const rootRef = React.useRef(null);
@@ -72,23 +72,23 @@ function Autorization(props: any) {
     function inquiry(e: any) {
       e.preventDefault();
   
-      setValue3(true);
+      setModal(true);
       
       axios.post('http://localhost:4000/login', {email: email, password: pass})
         .then(res => {
           console.log(res);
   
           if (res.data === 'Wrong password') {
-            setValue2(true);
-            setValue1(false);
-            setValue3(false);
+            setErrPass(true);
+            setErrMail(false);
+            setModal(false);
           } else if (res.data === 'User not defined') {
-            setValue1(true);
-            setValue3(false);
+            setErrMail(true);
+            setModal(false);
           } else {
-            setValue1(false);
-            setValue2(false);
-            setValue3(false);
+            setErrMail(false);
+            setErrPass(false);
+            setModal(false);
             localStorage.setItem('user', JSON.stringify(res.data));
             props.history.push('/userInfo');
           }
@@ -113,12 +113,12 @@ function Autorization(props: any) {
   
             <Div>
               <form className={classes.container} noValidate autoComplete="off">
-                <span className='red'>{value1 ? 'User not defined' : ''}</span>
+                <span className='red'>{errMail ? 'User not defined' : ''}</span>
   
                 <TextField
                   id="outlined-email-input"
                   label="Email"
-                  error={value1}
+                  error={errMail}
                   className={classes.textField}
                   type="email"
                   name="email"
@@ -131,7 +131,7 @@ function Autorization(props: any) {
                 <TextField
                   id="outlined-password-input"
                   label="Password"
-                  error={value2}
+                  error={errPass}
                   className={classes.textField}
                   type="password"
                   autoComplete="current-password"
@@ -140,7 +140,7 @@ function Autorization(props: any) {
                   onChange={(e) => setPass(e.currentTarget.value)}
                 />
   
-                <span className='red'>{value2 ? 'Wrong password' : ''}</span>
+                <span className='red'>{errPass ? 'Wrong password' : ''}</span>
   
                 <Button variant="outlined" className={classes.button} id='btn' onClick={inquiry}>
                   Submit
@@ -151,7 +151,7 @@ function Autorization(props: any) {
                 disablePortal
                 disableEnforceFocus
                 disableAutoFocus
-                open={value3}
+                open={modal}
                 aria-labelledby="server-modal-title"
                 aria-describedby="server-modal-description"
                 className={classes.modal}

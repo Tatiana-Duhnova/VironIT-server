@@ -1,6 +1,7 @@
-// const authMiddleware = require('../middleware/auth');
-const userService = require('../services/user-service');
-const express = require('express');
+import express from 'express';
+
+import * as userService from '../services/user-service';
+
 const userRouter = express.Router();
 
 userRouter.post('/login', userService.getUser);
@@ -10,4 +11,4 @@ userRouter.get('/users', userService.getAllUsers);
 userRouter.get('/images', userService.getImg);
 userRouter.put('/redaction', userService.updateUserInfo);
 
-module.exports = userRouter;
+export default userRouter;
