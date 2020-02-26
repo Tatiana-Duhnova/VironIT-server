@@ -1,11 +1,12 @@
 import React from 'react';
-import {DivHeader, DivContent, DivFooter, DivText, Content, Div, DivInfo, DivUsers, UserInfo} from '../components/index';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import {DivHeader, DivContent, DivFooter, DivText, Content, DivUsers} from '../components/index';
+// import { makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import Avatar from '@material-ui/core/Avatar';
+// import IconButton from '@material-ui/core/IconButton';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
+import UsersInfo from './showuser';
 
 interface IUser {
     name: string,
@@ -17,23 +18,23 @@ interface IUser {
     img?: string,
 }
 
-const useStyles = ((theme: Theme) => makeStyles({
-    margin: {
-      margin: theme.spacing(1),
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1),
-    },
-  }));
+// const useStyles = ((theme: Theme) => makeStyles({
+//     margin: {
+//       margin: theme.spacing(1),
+//     },
+//     extendedIcon: {
+//       marginRight: theme.spacing(1),
+//     },
+//   }));
 
 function AllUsers(props: any) {
-    const getUser: any = localStorage.getItem('user');
-    const user: IUser = JSON.parse(getUser);
-    const classes: any = useStyles;
-    const [file, setImg] = React.useState({
-        file: '',
-        imagePreviewUrl: `http://localhost:4000/images/?name=${user.img}`,
-    });
+    // const getUser: any = localStorage.getItem('user');
+    // const user: IUser = JSON.parse(getUser);
+    // const classes: any = useStyles;
+    // const [file] = React.useState({
+    //     file: '',
+    //     imagePreviewUrl: `http://localhost:4000/images/?name=${person.img}`,
+    // });
     const [allUsers, setAllUsers] = React.useState([]);
 
     React.useEffect (() => {
@@ -45,22 +46,9 @@ function AllUsers(props: any) {
 
     const showUsers = allUsers.map((person, index) => {
         return (
-          <UserInfo key={index} person={person} />
+          <UsersInfo key={index} person={person} />
         );
     });
-    
-    const handleImageChange = (e: any) => {
-        e.preventDefault();
-    
-        let reader = new FileReader();
-        let file = e.target.files[0];
-    
-        reader.onloadend = () => {
-          setImg({...file, file: file, imagePreviewUrl: reader.result});
-        };
-    
-        reader.readAsDataURL(file);
-    };
 
     const logout = () => {
         props.history.push('/');
@@ -83,48 +71,7 @@ function AllUsers(props: any) {
                     </DivText>
 
                     <DivUsers>
-                        <UserInfo>
-                            <Div>
-                                <Avatar 
-                                    alt='' 
-                                    src={file.imagePreviewUrl}
-                                    className='avatar' 
-                                />
-
-                                <input
-                                    accept="image/*"
-                                    id="outlined-button-file"
-                                    multiple
-                                    type="file"
-                                    onChange={handleImageChange}
-                                />
-
-                                <IconButton 
-                                    aria-label="delete" 
-                                    className={classes.margin} 
-                                    // onClick={deleteUser}
-                                    id='MuiIconButton-root'
-                                >
-                                    <DeleteIcon fontSize="inherit" />
-                                </IconButton>
-
-                                <DivInfo>
-                                    <div>
-                                        <p className='info'>Name:</p>
-                                        <p className='info'>Email:</p>
-                                        <p className='info'>Phone:</p>
-                                        <p className='info'>Gender:</p>
-                                    </div>
-
-                                    <div>
-                                        <p className='infoUser'></p>
-                                        <p className='infoUser'></p>
-                                        <p className='infoUser'></p>
-                                        <p className='infoUser' id='last'></p>
-                                    </div>
-                                </DivInfo>
-                            </Div>
-                        </UserInfo>
+                        <UsersInfo/>
                     </DivUsers>
                 </DivContent>
 
