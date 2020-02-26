@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 // import IconButton from '@material-ui/core/IconButton';
 // import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
-import UsersInfo from './showuser';
+import User from './user';
 
 interface IUser {
     name: string,
