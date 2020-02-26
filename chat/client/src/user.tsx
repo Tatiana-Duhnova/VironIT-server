@@ -14,11 +14,12 @@ const useStyles = ((theme: Theme) => makeStyles({
     },
 }));
 
-function UsersInfo(props: any) {
+function User(props: any) {
+    const {name, email, number, gender, img} = props.person;
     const classes: any = useStyles;
     const [file] = React.useState({
         file: '',
-        imagePreviewUrl: `http://localhost:4000/images/?name=${props.allUsers.img}`,
+        imagePreviewUrl: `http://localhost:4000/images/?name=${img}`,
     });
 
     // const deleteUser = () => {
@@ -59,10 +60,10 @@ function UsersInfo(props: any) {
                     </div>
 
                     <div>
-                        <p className='infoUser'>{props.allUsers.name}</p>
-                        <p className='infoUser'>{props.allUsers.email}</p>
-                        <p className='infoUser'>{props.allUsers.number}</p>
-                        <p className='infoUser' id='last'>{props.allUsers.gender}</p>
+                        <p className='infoUser'>{name}</p>
+                        <p className='infoUser'>{email}</p>
+                        <p className='infoUser'>{number}</p>
+                        <p className='infoUser' id='last'>{gender}</p>
                     </div>
                 </DivInfo>
             </Div>
