@@ -46,7 +46,7 @@ function AllUsers(props: any) {
 
     const showUsers = allUsers.map((person, index) => {
         return (
-          <UsersInfo key={index} person={person} />
+          <User key={index} person={person} />
         );
     });
 
@@ -71,7 +71,7 @@ function AllUsers(props: any) {
                     </DivText>
 
                     <DivUsers>
-                        <UsersInfo/>
+                        {showUsers}
                     </DivUsers>
                 </DivContent>
 
