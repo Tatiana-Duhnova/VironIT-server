@@ -32,10 +32,6 @@ export const updateUserInfo = async (req, res) => {
     res.send(user);
 };
 
-// export const deleteUser = async function(req){
-    
-// };
-
 export const getUser = (req, res) => {
     setTimeout(() => users.findOne({email: req.body.email}).then((user) => {
         if (user) {
