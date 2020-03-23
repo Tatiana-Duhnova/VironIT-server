@@ -4,23 +4,13 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import User from './user';
 
-interface IUser {
-    name: string,
-    email: string,
-    number: number,
-    gender: string,
-    password: string,
-    _id: string,
-    img?: string,
-}
-
 function AllUsers(props: any) {
     const [allUsers, setAllUsers] = React.useState([]);
 
     React.useEffect (() => {
         (async () => {
-            const getUsers: any = await axios.get('http://localhost:4000/users');
-            setAllUsers(getUsers);
+            const { data }: any = await axios.get('http://localhost:4000/users');
+            setAllUsers(data);
         })();
     }, []);
 

@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
   parameterLimit:50000
 }));
 
-app.use('/users', userRouter);
+app.use(userRouter);
 
 const port = 4000;
 

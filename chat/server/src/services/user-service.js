@@ -57,7 +57,7 @@ export const saveImg = async (req, res) => {
     const newImg = img.replace(/^.*base64,/, '');
   
     fs.writeFileSync(
-        path.join(__dirname, `./images/${fileName}`),
+        path.join(`./src/images/${fileName}`),
         Buffer.from(newImg, 'base64')
     );
   
@@ -70,7 +70,7 @@ export const getImg = async (req, res) => {
     const { name } = req.query;
   
     try {
-        const data = fs.readFileSync(path.join(__dirname, `./images/${name}`));
+        const data = fs.readFileSync(path.join(`./src/images/${name}`));
   
         res.send(data);
     } catch {
