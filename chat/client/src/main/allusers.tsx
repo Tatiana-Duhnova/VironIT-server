@@ -1,10 +1,6 @@
 import React from 'react';
 import {DivHeader, DivContent, DivFooter, DivText, Content, DivUsers} from '../components/index';
-// import { makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-// import Avatar from '@material-ui/core/Avatar';
-// import IconButton from '@material-ui/core/IconButton';
-// import DeleteIcon from '@material-ui/icons/Delete';
 import axios from 'axios';
 import User from './user';
 
@@ -18,23 +14,7 @@ interface IUser {
     img?: string,
 }
 
-// const useStyles = ((theme: Theme) => makeStyles({
-//     margin: {
-//       margin: theme.spacing(1),
-//     },
-//     extendedIcon: {
-//       marginRight: theme.spacing(1),
-//     },
-//   }));
-
 function AllUsers(props: any) {
-    // const getUser: any = localStorage.getItem('user');
-    // const user: IUser = JSON.parse(getUser);
-    // const classes: any = useStyles;
-    // const [file] = React.useState({
-    //     file: '',
-    //     imagePreviewUrl: `http://localhost:4000/images/?name=${person.img}`,
-    // });
     const [allUsers, setAllUsers] = React.useState([]);
 
     React.useEffect (() => {

@@ -22,10 +22,6 @@ function User(props: any) {
         imagePreviewUrl: `http://localhost:4000/images/?name=${img}`,
     });
 
-    // const deleteUser = () => {
-
-    // }
-
     return(
         <UserInfo>
             <Div>
@@ -44,8 +40,7 @@ function User(props: any) {
 
                 <IconButton 
                     aria-label="delete" 
-                    className={classes.margin} 
-                    // onClick={deleteUser}
+                    className={classes.margin}
                     id='MuiIconButton-root'
                 >
                     <DeleteIcon fontSize="inherit" />
@@ -71,4 +66,4 @@ function User(props: any) {
     );
 }
 
-export default UsersInfo;
+export default User;
