@@ -14,7 +14,6 @@ db.then(() => {
 })
 
 app.use(cors());
-app.use('/static', express.static(`${__dirname}/public`));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({
   limit: '50mb',
